@@ -1,13 +1,10 @@
 import subprocess
 import hashlib
-import os
 
-# Chemins
 makefile_path = "./Makefile"
 binary_path = "./keccak"
 test_file_path = "./test/test_file.bin"
 
-# Étape 1 : Compiler le projet avec le Makefile
 def compile_project():
     print("Compilation en cours...")
     result = subprocess.run(["make", "-f", makefile_path], capture_output=True, text=True)
@@ -17,7 +14,6 @@ def compile_project():
         exit(1)
     print("Compilation réussie.")
 
-# Étape 2 : Exécuter le binaire avec le fichier de test
 def execute_binary():
     print("Exécution du binaire...")
     result = subprocess.run([binary_path, test_file_path], capture_output=True, text=True)
@@ -27,11 +23,9 @@ def execute_binary():
         exit(1)
     print("Sortie du binaire :")
     print(result.stdout)
-    # Extraire le hash de la sortie du binaire
-    hash_line = result.stdout.splitlines()[-1]  # Le hash est sur la dernière ligne
+    hash_line = result.stdout.splitlines()[-1] 
     return hash_line.strip()
 
-# Étape 3 : Calculer le hash avec hashlib
 def calculate_python_hash():
     print("Calcul du hash avec hashlib...")
     with open(test_file_path, "rb") as f:
@@ -40,7 +34,6 @@ def calculate_python_hash():
     print(f"Hash calculé avec hashlib : {hash_result}")
     return hash_result
 
-# Étape 4 : Comparer les résultats
 def compare_hashes(binary_hash, python_hash):
     print("Comparaison des résultats...")
     if binary_hash == python_hash:
@@ -50,7 +43,6 @@ def compare_hashes(binary_hash, python_hash):
         print(f"Binaire : {binary_hash}")
         print(f"Hashlib : {python_hash}")
 
-# Exécution
 if __name__ == "__main__":
     compile_project()
     binary_hash = execute_binary()

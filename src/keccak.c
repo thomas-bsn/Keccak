@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-void keccak(const char *filename, uint8_t *hash) {
+void keccak(const char *filename, uint8_t *hash) 
+{
     // 1. Diviser le fichier en blocs
     uint8_t *blocks;
     size_t num_blocks = bloc_part(filename, &blocks);
