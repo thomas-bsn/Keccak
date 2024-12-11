@@ -17,5 +17,8 @@ all: $(TARGET)
 $(TARGET):
 	$(CC) $(CFLAGS) $(SRC_FILES) -o $@
 
+test: keccak
+	python3 test/test.py
+
 clean:
 	rm -f $(TARGET)
