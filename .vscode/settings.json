@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "keccak.h": "c",
-        "stdint.h": "c",
-        "stdlib.h": "c"
-    }
-}
