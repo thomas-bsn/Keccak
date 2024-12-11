@@ -17,13 +17,17 @@ all: $(TARGET)
 $(TARGET):
 	$(CC) $(CFLAGS) $(SRC_FILES) -o $@
 
-test1: clean keccak
-	echo "===== On compare les hash =====" 
-	python3 test/test.py
+test1: clean keccak # On compare les hash du fichier entre le binaire C et le binaire Python
+	@echo "===== On compare les hash =====" 
+	@python3 test/test.py
 
-test2: clean keccak
-	echo "===== On compare les premiers blocs ====="
-	python3 test/compare_blocks.py
+test2: clean keccak # On compare le premier bloc du fichier test entre le binaire C et le binaire Python
+	@echo "===== On compare le premier bloc ====="
+	@python3 test/compare_blocks.py
+
+test3: clean keccak # Print le hash d'un state rempli de 0 par la binaire Python, a tester manuellement avec le code source en C avec la macro TEST = 1
+	@echo "===== Print le hash d'un state rempli de 0 ====="
+	@python3 test/squeeze.py
 
 clean:
 	rm -f $(TARGET)

@@ -48,7 +48,7 @@ void save_block_to_file(const char *filename, uint64_t *block, size_t block_size
     }
 
     for (size_t i = 0; i < block_size; i++) {
-        fprintf(file, "%016lx\n", block[i]); // Chaque entier est écrit sur une ligne
+        fprintf(file, "%016lx\n", block[i]);
     }
 
     fclose(file);

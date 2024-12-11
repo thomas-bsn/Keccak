@@ -12,7 +12,7 @@ void apply_padding(uint8_t *blocks, size_t filesize, size_t block_size, size_t n
 
 size_t bloc_part(const char *filename, uint8_t **blocks_out) 
 {
-    printf("Bloc part loading...\n");
+    printf("==== Bloc part loading... ====\n");
 
     uint8_t *file_content;
     size_t filesize = read_file(filename, &file_content);
@@ -42,6 +42,6 @@ size_t bloc_part(const char *filename, uint8_t **blocks_out)
     printf("Taille du fichier : %zu octets\n", filesize);
     printf("Nombre de blocs calculés : %zu\n", num_blocks);
 
-    printf("Bloc part loaded\n");
+    printf("==== Bloc part loaded ====\n\n");
     return num_blocks;
 }

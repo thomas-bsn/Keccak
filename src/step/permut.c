@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdio.h>
 
-// Sous-étape Theta
 void Theta(uint64_t state[KECCAK_STATE_SIZE]) 
 {
     uint64_t C[5], D[5];
@@ -18,17 +17,8 @@ void Theta(uint64_t state[KECCAK_STATE_SIZE])
     }
 }
 
-// Sous-étape Rho
-void Rho(uint64_t state[KECCAK_STATE_SIZE]) {
-    static const int RHO_OFFSETS[5][5] = 
-    {
-        { 0, 36, 3, 41, 18 },
-        { 1, 44, 10, 45, 2 },
-        { 62, 6, 43, 15, 61 },
-        { 28, 55, 25, 21, 56 },
-        { 27, 20, 39, 8, 14 }
-    };
-
+void Rho(uint64_t state[KECCAK_STATE_SIZE]) 
+{
     for (int x = 0; x < 5; x++) 
     {
         for (int y = 0; y < 5; y++) 
@@ -40,7 +30,6 @@ void Rho(uint64_t state[KECCAK_STATE_SIZE]) {
     }
 }
 
-// Sous-étape Pi
 void Pi(uint64_t state[KECCAK_STATE_SIZE]) 
 {
     uint64_t temp[KECCAK_STATE_SIZE];
@@ -51,7 +40,6 @@ void Pi(uint64_t state[KECCAK_STATE_SIZE])
             state[y + 5 * ((2 * x + 3 * y) % 5)] = temp[x + 5 * y];
 }
 
-// Sous-étape Chi
 void Chi(uint64_t state[KECCAK_STATE_SIZE]) 
 {
     uint64_t temp[5];
@@ -66,21 +54,44 @@ void Chi(uint64_t state[KECCAK_STATE_SIZE])
     }
 }
 
-// Sous-étape Iota
 void Iota(uint64_t state[KECCAK_STATE_SIZE], uint64_t round_constant) 
 {
     state[0] ^= round_constant;
 }
 
-// Fonction principale Permut
+void print_state(const uint64_t state[KECCAK_STATE_SIZE], const char *stage, int round) 
+{
+    printf("\nÉtat après %s (Tour %d) :\n", stage, round);
+    for (int y = 0; y < 5; y++) 
+    {
+        for (int x = 0; x < 5; x++) 
+        {
+            printf("%016lx ", state[x + 5 * y]);
+        }
+        printf("\n");
+    }
+}
+
 void permut(uint64_t state[KECCAK_STATE_SIZE]) 
 {
     for (int round = 0; round < 24; round++) 
     {
+        // printf("\n=== Début du tour %d ===\n", round);
+        // print_state(state, "Initialisation", round);
+
         Theta(state);
+        // print_state(state, "Theta", round);
+
         Rho(state);
+        // print_state(state, "Rho", round);
+
         Pi(state);
+        // print_state(state, "Pi", round);
+
         Chi(state);
+        // print_state(state, "Chi", round);
+
         Iota(state, RC[round]);
+        // print_state(state, "Iota", round);
     }
 }

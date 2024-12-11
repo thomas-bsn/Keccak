@@ -7,8 +7,10 @@
 #define SHA3_256_HASH_SIZE 32  // 256 bits = 32 octets
 #define KECCAK_STATE_SIZE 25   // 1600 bits / 64 bits = 25
 #define KECCAK_RATE 136        // 1088 bits = 136 octets
+#define TEST 0                // 1 pour activer le test de squeeze sur un state initialisé à 0
 
-static const uint64_t RC[24] = {
+static const uint64_t RC[24] = 
+{
     0x0000000000000001ULL, 0x0000000000008082ULL, 0x800000000000808aULL, 
     0x8000000080008000ULL, 0x000000000000808bULL, 0x0000000080000001ULL, 
     0x8000000080008081ULL, 0x8000000000008009ULL, 0x000000000000008aULL, 
@@ -17,6 +19,15 @@ static const uint64_t RC[24] = {
     0x8000000000008003ULL, 0x8000000000008002ULL, 0x8000000000000080ULL, 
     0x000000000000800aULL, 0x800000008000000aULL, 0x8000000080008081ULL, 
     0x8000000000008080ULL, 0x0000000080000001ULL, 0x8000000080008008ULL
+};
+
+static const int RHO_OFFSETS[5][5] = 
+{
+    { 0, 36, 3, 41, 18 },
+    { 1, 44, 10, 45, 2 },
+    { 62, 6, 43, 15, 61 },
+    { 28, 55, 25, 21, 56 },
+    { 27, 20, 39, 8, 14 }
 };
 
 void keccak(const char *filename, uint8_t *hash);
