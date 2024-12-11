@@ -9,13 +9,13 @@ int main(int argc, char *argv[])
     {
         printf("Test squeeze avec un state initialisé à 0\n");
         test_squeeze();
-        return EXIT_SUCCESS;
+        return 0;
     }
 
     if (argc != 2) 
     {
         fprintf(stderr, "Usage: %s <file>\n", argv[0]);
-        return EXIT_FAILURE;
+        return 1;
     }
 
     const char *filename = argv[1];
@@ -23,8 +23,8 @@ int main(int argc, char *argv[])
 
     keccak(filename, hash);
 
-    printf("SHA3-256 hash of '%s':\n", filename);
+    printf("hash SHA3-256 de '%s':\n", filename);
     print_hash(hash, SHA3_256_HASH_SIZE);
 
-    return EXIT_SUCCESS;
+    return 0;
 }

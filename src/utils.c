@@ -65,9 +65,8 @@ void test_squeeze()
     squeeze(state, hash, SHA3_256_HASH_SIZE);
 
     printf("Hash généré (squeeze uniquement) :\n");
-    for (size_t i = 0; i < SHA3_256_HASH_SIZE; i++) {
+    for (size_t i = 0; i < SHA3_256_HASH_SIZE; i++) 
         printf("%02x", hash[i]);
-    }
     printf("\n");
 }
 
