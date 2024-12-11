@@ -38,7 +38,6 @@ size_t bloc_part(const char *filename, uint8_t **blocks_out)
 
     free(file_content);
 
-
     printf("Taille du fichier : %zu octets\n", filesize);
     printf("Nombre de blocs calculés : %zu\n", num_blocks);
 
