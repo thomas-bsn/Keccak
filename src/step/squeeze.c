@@ -9,7 +9,8 @@ void squeeze(uint64_t state[KECCAK_STATE_SIZE], uint8_t *hash, size_t hash_size)
     size_t rate_bytes = KECCAK_RATE / 8;
     size_t bytes_extracted = 0;
 
-    while (bytes_extracted < hash_size) {
+    while (bytes_extracted < hash_size) 
+    {
         size_t to_copy = (hash_size - bytes_extracted < rate_bytes) 
                          ? hash_size - bytes_extracted 
                          : rate_bytes;

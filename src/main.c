@@ -5,19 +5,24 @@
 
 int main(int argc, char *argv[]) 
 {
-    if (argc != 2) 
-    {
-        fprintf(stderr, "Usage: %s <file>\n", argv[0]);
-        return EXIT_FAILURE;
-    }
+    // if (argc != 2) 
+    // {
+    //     fprintf(stderr, "Usage: %s <file>\n", argv[0]);
+    //     return EXIT_FAILURE;
+    // }
 
-    const char *filename = argv[1];
-    uint8_t hash[SHA3_256_HASH_SIZE];
+    // const char *filename = argv[1];
+    // uint8_t hash[SHA3_256_HASH_SIZE];
 
-    keccak(filename, hash);
+    // keccak(filename, hash);
 
-    printf("SHA3-256 hash of '%s':\n", filename);
-    print_hash(hash, SHA3_256_HASH_SIZE);
+    // printf("SHA3-256 hash of '%s':\n", filename);
+    // print_hash(hash, SHA3_256_HASH_SIZE);
 
-    return EXIT_SUCCESS;
+    // return EXIT_SUCCESS;
+
+    printf("Test de squeeze uniquement :\n");
+    test_squeeze();
+
+    return 0;
 }

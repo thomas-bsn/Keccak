@@ -17,8 +17,14 @@ all: $(TARGET)
 $(TARGET):
 	$(CC) $(CFLAGS) $(SRC_FILES) -o $@
 
-test: keccak
+test1: clean keccak
+	echo "===== On compare les hash =====" 
 	python3 test/test.py
+
+test2: clean keccak
+	echo "===== On compare les premiers blocs ====="
+	python3 test/compare_blocks.py
 
 clean:
 	rm -f $(TARGET)
+	rm -f test/*.txt

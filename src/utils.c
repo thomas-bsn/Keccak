@@ -1,5 +1,9 @@
-#include "utils.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
+#include "utils.h"
+#include "keccak.h"
 
 size_t read_file(const char *filename, uint8_t **buffer_out) 
 {
@@ -34,6 +38,39 @@ size_t read_file(const char *filename, uint8_t **buffer_out)
     fclose(file);
     return filesize;
 }
+
+void save_block_to_file(const char *filename, uint64_t *block, size_t block_size) 
+{
+    FILE *file = fopen(filename, "w");
+    if (!file) {
+        perror("Erreur lors de l'ouverture du fichier");
+        return;
+    }
+
+    for (size_t i = 0; i < block_size; i++) {
+        fprintf(file, "%016lx\n", block[i]); // Chaque entier est écrit sur une ligne
+    }
+
+    fclose(file);
+    printf("Bloc enregistré dans %s\n", filename);
+}
+
+
+void test_squeeze() 
+{
+    uint64_t state[KECCAK_STATE_SIZE] = {0}; // 1600 bits (25 x 64 bits)
+
+    uint8_t hash[SHA3_256_HASH_SIZE] = {0}; // 32 octets
+
+    squeeze(state, hash, SHA3_256_HASH_SIZE);
+
+    printf("Hash généré (squeeze uniquement) :\n");
+    for (size_t i = 0; i < SHA3_256_HASH_SIZE; i++) {
+        printf("%02x", hash[i]);
+    }
+    printf("\n");
+}
+
 
 void print_hash(const uint8_t *hash, size_t hash_size) 
 {
