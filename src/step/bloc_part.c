@@ -20,16 +20,14 @@ size_t bloc_part(const char *filename, uint8_t **blocks_out)
     size_t block_size = KECCAK_RATE;
     size_t num_blocks = (filesize + block_size - 1) / block_size;
 
-    *blocks_out = malloc(num_blocks * block_size);
+    *blocks_out = calloc(num_blocks, block_size); // On remplit les blocs de zéros
     if (!*blocks_out) 
     {
         perror("Erreur d'allocation mémoire");
         free(file_content);
         exit(EXIT_FAILURE);
     }
-    memset(*blocks_out, 0, num_blocks * block_size); // On remplit les blocs de zéros
-
-    memcpy(*blocks_out, file_content, filesize);
+    memcpy(*blocks_out, file_content, filesize); // On copie le contenu du fichier dans les blocs
 
     if (filesize % block_size != 0) 
     {
