@@ -29,6 +29,10 @@ test3: clean keccak # Print le hash d'un state rempli de 0 par la binaire Python
 	@echo "===== Print le hash d'un state rempli de 0 ====="
 	@python3 test/squeeze.py
 
+test_memory: clean keccak # Test de fuite de mémoire
+	@echo "===== Test de fuite de mémoire ====="
+	@valgrind --leak-check=full ./$(TARGET) test/test_file.bin
+
 clean:
 	rm -f $(TARGET)
 	rm -f test/*.txt
